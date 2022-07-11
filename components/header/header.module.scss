@@ -9,4 +9,22 @@
     @apply drop-shadow;
     @apply font-Rubik;
   }
+
+  &_menu {
+    @apply hidden lg:flex;
+  }
+
+  &_mobile_menu {
+    @apply hidden flex-col absolute top-14 left-0;
+    @apply w-full h-auto max-h-40;
+    @apply bg-blue-400 text-white drop-shadow shadow-white;
+
+    &.visible {
+      @apply flex lg:hidden;
+    }
+
+    &_button {
+      @apply flex lg:hidden;
+    }
+  }
 }

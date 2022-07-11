@@ -7,6 +7,8 @@ import styles from "./button.module.scss";
 type ButtonPropTypes = {
   type: "menu" | "text";
   text?: string;
+  setIsMenuShown: Function;
+  className?: string;
 };
 
 const animationConfig = {
@@ -14,21 +16,30 @@ const animationConfig = {
   whileTap: { scale: 0.9 },
 };
 
-const onClick = (play: PlayFunction) => {
+const onClick = (play: PlayFunction, setIsMenuShown: Function) => {
+  setIsMenuShown((_prev: boolean) => !_prev);
   play();
 };
 
-const Button = ({ type, text }: ButtonPropTypes) => {
+const Button = ({ type, text, setIsMenuShown, className }: ButtonPropTypes) => {
   const [play] = useSound("/click.mp3");
   switch (type) {
     case "menu":
       return (
-        <motion.button {...animationConfig} onClick={() => onClick(play)}>
+        <motion.button
+          {...animationConfig}
+          onClick={() => onClick(play, setIsMenuShown)}
+          className={className}
+        >
           <MenuButtonIcon></MenuButtonIcon>
         </motion.button>
       );
     case "text":
-      return <motion.button {...animationConfig}>{text}</motion.button>;
+      return (
+        <motion.button {...animationConfig} className={className}>
+          {text}
+        </motion.button>
+      );
   }
 };
 
