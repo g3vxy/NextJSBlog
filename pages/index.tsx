@@ -1,6 +1,7 @@
-import { NextPage } from "next";
+import MainLayout from "../components/layouts/main";
+import { NextPageWithLayout } from "./_app";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <div className="h-screen w-screen flex justify-center items-center bg-black">
       <h1
@@ -11,6 +12,10 @@ const Home: NextPage = () => {
       </h1>
     </div>
   );
+};
+
+Home.getLayout = (page) => {
+  return <MainLayout>{page}</MainLayout>;
 };
 
 export default Home;
