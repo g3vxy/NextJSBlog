@@ -1,3 +1,7 @@
+import { motion } from "framer-motion";
+import useSound from "use-sound";
+import { PlayFunction } from "use-sound/dist/types";
+
 import styles from "./button.module.scss";
 
 type ButtonPropTypes = {
@@ -5,16 +9,26 @@ type ButtonPropTypes = {
   text?: string;
 };
 
+const animationConfig = {
+  whileHover: { scale: 1.1 },
+  whileTap: { scale: 0.9 },
+};
+
+const onClick = (play: PlayFunction) => {
+  play();
+};
+
 const Button = ({ type, text }: ButtonPropTypes) => {
+  const [play] = useSound("/click.mp3");
   switch (type) {
     case "menu":
       return (
-        <button>
+        <motion.button {...animationConfig} onClick={() => onClick(play)}>
           <MenuButtonIcon></MenuButtonIcon>
-        </button>
+        </motion.button>
       );
     case "text":
-      return <button>{text}</button>;
+      return <motion.button {...animationConfig}>{text}</motion.button>;
   }
 };
 
